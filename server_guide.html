@@ -118,6 +118,7 @@
                     <div class="mt-6 mb-2 px-4 text-[10px] font-bold text-stone-400 uppercase tracking-wider">企画・イベント</div>
                     <a href="#apy" class="nav-link px-4 py-2 text-sm">企画募集コマンド</a>
                     <a href="#host-type" class="nav-link px-4 py-2 text-sm">2つの開催方式</a>
+                    <a href="#category" class="nav-link px-4 py-2 text-sm text-pink-600">餅研開催と外部開催</a>
                     <a href="#external" class="nav-link px-4 py-2 text-sm">外部企画の扱い</a>
                 </nav>
             </div>
@@ -354,20 +355,72 @@
                 </div>
             </section>
 
+            <!-- Categories -->
+            <section id="category" class="content-card">
+                <h2><i data-lucide="map-pin" class="w-5 h-5 text-pink-500"></i> 餅研開催企画と外部開催企画</h2>
+                <p class="text-sm text-stone-600 mb-6 leading-relaxed">
+                    餅研では、サーバー内部での企画だけでなく、外部で開催されるイベントの告知や募集も可能です。実施場所によってルールが異なります。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                    <div class="p-5 bg-pink-50/30 rounded-2xl border border-pink-100">
+                        <h4 class="font-bold text-sm mb-3 text-pink-800">餅研開催企画</h4>
+                        <ul class="text-[11px] text-stone-500 space-y-2 leading-relaxed">
+                            <li class="flex gap-2 items-start"><i data-lucide="home" class="w-3 text-pink-400 mt-0.5"></i> <div>餅研内のVCやルーム、専用鯖を使って実施する企画</div></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="home" class="w-3 text-pink-400 mt-0.5"></i> <div>募集から実施まで一貫して餅研の場を利用します</div></li>
+                        </ul>
+                    </div>
+                    <div class="p-5 bg-stone-50/50 rounded-2xl border border-stone-100">
+                        <h4 class="font-bold text-sm mb-3 text-stone-700">外部開催企画</h4>
+                        <ul class="text-[11px] text-stone-500 space-y-2 leading-relaxed">
+                            <li class="flex gap-2 items-start"><i data-lucide="external-link" class="w-3 text-stone-400 mt-0.5"></i> <div>他サーバーや外部サービス（Web等）で行う企画</div></li>
+                            <li class="flex gap-2 items-start"><i data-lucide="external-link" class="w-3 text-stone-400 mt-0.5"></i> <div>告知や参加募集の窓口としてのみ餅研を利用します</div></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-stone-50 p-5 rounded-2xl mb-8">
+                    <h4 class="font-bold text-xs text-stone-500 mb-3 uppercase tracking-wider flex items-center gap-2">
+                        <i data-lucide="lightbulb" class="w-3"></i> 重要な考え方
+                    </h4>
+                    <ul class="text-[11px] text-stone-600 space-y-2">
+                        <li>・「餅研内で募集された企画」が必ずしも「餅研内開催」とは限りません。</li>
+                        <li>・主催者は、実施場所が「餅研内」か「外部」か、参加者に伝わるよう案内してください。</li>
+                    </ul>
+                </div>
+
+                <div class="p-6 bg-white border border-stone-100 rounded-2xl">
+                    <h4 class="font-bold text-sm mb-4 text-stone-800">自由な活動を推奨（禁止していないこと）</h4>
+                    <p class="text-[11px] text-stone-500 mb-4 leading-relaxed">
+                        餅研は参加者の外部での活動を縛りません。以下のような活動は自由に行えます。
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] text-stone-600">
+                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="user-cog" class="w-3 text-stone-400"></i> 外部企画を主催すること</div>
+                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="megaphone" class="w-3 text-stone-400"></i> 外部イベントの宣伝</div>
+                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="users-2" class="w-3 text-stone-400"></i> 外部イベントへの勧誘</div>
+                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="info" class="w-3 text-stone-400"></i> 外部で作った企画の紹介</div>
+                    </div>
+                </div>
+            </section>
+
             <!-- External -->
             <section id="external" class="content-card">
                 <h2><i data-lucide="share-2" class="w-5 h-5 text-slate-500"></i> 外部企画の扱い</h2>
-                <p class="text-sm text-stone-600 leading-relaxed mb-6">
-                    他サーバーや外部サービスでの告知もOKです。活動を縛ることはありません。
+                <p class="text-sm text-stone-600 leading-relaxed mb-6 text-orange-800 font-medium">
+                    外部企画に関連して発生した問題は、内容によって餅研内での信用判断に影響する場合があります。
                 </p>
                 <div class="grid md:grid-cols-2 gap-4">
-                    <div class="p-5 bg-stone-50 rounded-2xl">
-                        <h4 class="font-bold text-xs mb-2 text-stone-700">企画者へ</h4>
-                        <p class="text-[10px] text-stone-500 leading-relaxed">外部であっても、餅研内で募集した企画での振る舞いは利用規約の対象となり、信用判断に影響する場合があります。</p>
+                    <div class="p-5 bg-stone-50 rounded-2xl border border-stone-100">
+                        <h4 class="font-bold text-xs mb-2 text-stone-700">企画者の方へ</h4>
+                        <p class="text-[10px] text-stone-500 leading-relaxed">
+                            餅研内で広報・募集を行った場合、外部開催であっても発生したトラブルは**利用規約（サーバー外での振る舞い）**の確認対象となります。「外部だから無関係」とは限らない点にご留意ください。
+                        </p>
                     </div>
-                    <div class="p-5 bg-stone-50 rounded-2xl">
-                        <h4 class="font-bold text-xs mb-2 text-stone-700">参加者へ</h4>
-                        <p class="text-[10px] text-stone-500 leading-relaxed">外部企画におけるトラブルについて、餅研側では責任を負いかねます。各自の責任で参加してください。</p>
+                    <div class="p-5 bg-stone-50 rounded-2xl border border-stone-100">
+                        <h4 class="font-bold text-xs mb-2 text-stone-700">参加者の方へ</h4>
+                        <p class="text-[10px] text-stone-500 leading-relaxed">
+                            外部企画自体を餅研が監督しているわけではありません。運営責任やトラブルについて餅研は責任を負いかねるため、各自の判断で参加してください。
+                        </p>
                     </div>
                 </div>
             </section>
