@@ -7,27 +7,48 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         body {
-            font-family: 'Noto Sans JP', 'Inter', sans-serif;
-            background-color: #fafaf9; /* 温かみのある背景色 */
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #fafaf9;
             color: #44403c;
             scroll-behavior: smooth;
+            font-size: 18px; /* ベースサイズを大きめに設定 */
         }
         .content-card {
             background: white;
-            border-radius: 1.25rem;
+            border-radius: 1.5rem;
             border: 1px solid #e7e5e4;
-            padding: 2.25rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.04);
+        }
+        .step-circle {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #f5f5f4;
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #78716c;
+            flex-shrink: 0;
+        }
+        .step-arrow {
+            width: 2px;
+            height: 2rem;
+            background: #e7e5e4;
+            margin-left: 1.25rem;
         }
         .nav-link {
             transition: all 0.2s;
             border-radius: 0.75rem;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
         .nav-link:hover {
             background-color: #f5f5f4;
@@ -38,420 +59,578 @@
             color: #be185d;
             font-weight: 600;
         }
-        .badge {
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 0.125rem 0.5rem;
-            border-radius: 9999px;
-            text-transform: uppercase;
-        }
-        .badge-red { background: #fef2f2; color: #b91c1c; border: 1px solid #fee2e2; }
-        .badge-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe; }
-        
-        code {
-            background: #f5f5f4;
-            padding: 0.2rem 0.4rem;
-            border-radius: 6px;
-            font-family: monospace;
-            color: #78716c;
-            font-size: 0.9em;
-        }
         h2 {
-            padding-bottom: 0.75rem;
-            margin-bottom: 1.75rem;
+            margin-bottom: 2.5rem;
             font-weight: 700;
-            font-size: 1.4rem;
+            font-size: 2rem;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            color: #292524;
-            border-bottom: 1px dashed #e7e5e4;
+            gap: 1rem;
+            color: #1c1917;
         }
-        h3 {
-            font-weight: 700;
+        .important-box {
+            border-radius: 1rem;
+            padding: 2rem;
             font-size: 1.1rem;
-            color: #44403c;
-            margin-bottom: 1rem;
+            line-height: 1.7;
         }
         .sidebar {
             height: calc(100vh - 4rem);
             position: sticky;
             top: 2rem;
         }
-        /* スクロールバーのカスタマイズ */
-        .sidebar::-webkit-scrollbar {
-            width: 4px;
+        code {
+            background: #f1f5f9;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: #1e293b;
+            font-weight: 600;
         }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #e7e5e4;
-            border-radius: 10px;
+        .badge {
+            font-size: 0.85rem !important;
+            padding: 0.25rem 0.75rem !important;
         }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-6 md:p-14 text-stone-700">
 
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row gap-10">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-14">
         
-        <!-- Sidebar Navigation -->
-        <aside class="md:w-64 shrink-0 hidden md:block">
-            <div class="sidebar flex flex-col gap-1 overflow-y-auto pr-4">
-                <div class="px-4 mb-6">
-                    <div class="flex items-center gap-2 mb-1">
-                        <div class="w-7 h-7 bg-stone-800 rounded-lg flex items-center justify-center text-white text-[10px] font-bold shadow-sm">餅</div>
-                        <span class="font-bold text-stone-800 tracking-tight">Participant Guide</span>
+        <!-- サイドナビゲーション -->
+        <aside class="lg:w-80 shrink-0 hidden lg:block">
+            <div class="sidebar flex flex-col overflow-y-auto pr-4">
+                <div class="px-4 mb-10">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-12 h-12 bg-stone-800 rounded-xl flex items-center justify-center text-white font-bold shadow-md text-xl">餅</div>
+                        <span class="font-bold text-stone-800 text-2xl tracking-tight">Guidebook</span>
                     </div>
-                    <p class="text-[9px] text-stone-400 uppercase tracking-[0.15em] font-semibold">Mochiken Streamers</p>
+                    <p class="text-[12px] text-stone-400 uppercase tracking-widest font-bold">Mochiken Streamers</p>
                 </div>
                 
-                <nav class="flex flex-col">
-                    <a href="#intro" class="nav-link px-4 py-2 text-sm">はじめに</a>
-                    
-                    <div class="mt-6 mb-2 px-4 text-[10px] font-bold text-stone-400 uppercase tracking-wider">基本機能</div>
-                    <a href="#dm" class="nav-link px-4 py-2 text-sm">DM承認システム</a>
-                    <a href="#room" class="nav-link px-4 py-2 text-sm">プライベートルーム</a>
-                    <a href="#invite" class="nav-link px-4 py-2 text-sm">参加者の招待</a>
-                    <a href="#support" class="nav-link px-4 py-2 text-sm">運営への相談窓口</a>
-                    
-                    <div class="mt-6 mb-2 px-4 text-[10px] font-bold text-stone-400 uppercase tracking-wider">過ごし方</div>
-                    <a href="#area" class="nav-link px-4 py-2 text-sm">エリアの使い分け</a>
-                    
-                    <div class="mt-6 mb-2 px-4 text-[10px] font-bold text-stone-400 uppercase tracking-wider">企画・イベント</div>
-                    <a href="#apy" class="nav-link px-4 py-2 text-sm">企画募集コマンド</a>
-                    <a href="#host-type" class="nav-link px-4 py-2 text-sm">2つの開催方式</a>
-                    <a href="#category" class="nav-link px-4 py-2 text-sm text-pink-600">餅研開催と外部開催</a>
-                    <a href="#external" class="nav-link px-4 py-2 text-sm">外部企画の扱い</a>
+                <nav class="flex flex-col gap-1">
+                    <a href="#intro" class="nav-link px-4 py-3">はじめに</a>
+                    <div class="mt-8 mb-2 px-4 text-sm font-bold text-stone-400 uppercase tracking-wider text-pink-600/60">基本操作</div>
+                    <a href="#dm" class="nav-link px-4 py-2">DM承認システム</a>
+                    <a href="#room" class="nav-link px-4 py-2">プライベートルーム</a>
+                    <a href="#invite" class="nav-link px-4 py-2">参加者の招待</a>
+                    <a href="#support" class="nav-link px-4 py-2">運営への相談窓口</a>
+                    <div class="mt-8 mb-2 px-4 text-sm font-bold text-stone-400 uppercase tracking-wider text-pink-600/60">ルール</div>
+                    <a href="#area" class="nav-link px-4 py-2 text-red-600 font-bold">エリアの使い分け</a>
+                    <div class="mt-8 mb-2 px-4 text-sm font-bold text-stone-400 uppercase tracking-wider text-pink-600/60">企画を立てる</div>
+                    <a href="#event-intro" class="nav-link px-4 py-2">企画募集 / /apy</a>
+                    <a href="#host-type" class="nav-link px-4 py-2">開催の2方式</a>
+                    <a href="#category" class="nav-link px-4 py-2">内部開催・外部開催</a>
+                    <a href="#external" class="nav-link px-4 py-2">外部活動の注意点</a>
                 </nav>
             </div>
         </aside>
 
-        <!-- Main Content -->
-        <main class="flex-1 max-w-3xl">
+        <!-- メインコンテンツ -->
+        <main class="flex-1">
             
-            <header id="intro" class="mb-14">
-                <h1 class="text-3xl font-bold text-stone-800 mb-5 tracking-tight text-center md:text-left">サーバー参加者ガイド</h1>
-                <p class="text-stone-500 leading-relaxed text-sm text-center md:text-left">
-                    餅研ストリーマーズルームへようこそ。このページは、参加者の皆さんが各機能をスムーズに使いこなし、主体的に活動を広げていくための「手引書」です。
+            <!-- Header -->
+            <header id="intro" class="mb-20 text-center lg:text-left">
+                <div class="inline-block bg-pink-100 text-pink-600 text-sm font-bold px-4 py-1.5 rounded-full mb-6 shadow-sm">Participant Only</div>
+                <h1 class="text-5xl md:text-6xl font-black text-stone-800 mb-8 tracking-tighter">
+                    餅研 参加者ガイド
+                </h1>
+                <p class="text-2xl text-stone-500 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    ストリーマーやクリエイターが安全に交流し、<br class="hidden md:block">
+                    新しい企画を実際に動かしていくためのハブ機能を解説します。
                 </p>
             </header>
 
-            <!-- DM -->
+            <!-- 1. サーバーでできること -->
+            <section id="features" class="content-card">
+                <h2><i data-lucide="layout-grid" class="text-pink-500"></i> このサーバーでできること</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 text-stone-600">
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm">
+                        <i data-lucide="message-square" class="text-sky-500 w-6 h-6"></i>
+                        <span class="text-base font-bold">DM申請・相談</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm">
+                        <i data-lucide="door-open" class="text-purple-500 w-6 h-6"></i>
+                        <span class="text-base font-bold">専用ルーム作成</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm">
+                        <i data-lucide="shield" class="text-indigo-500 w-6 h-6"></i>
+                        <span class="text-base font-bold">通報・運営相談</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm">
+                        <i data-lucide="video" class="text-orange-500 w-6 h-6"></i>
+                        <span class="text-base font-bold">オン/オフ切替</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm">
+                        <i data-lucide="calendar" class="text-emerald-500 w-6 h-6"></i>
+                        <span class="text-base font-bold">企画募集・主催</span>
+                    </div>
+                    <div class="flex items-center gap-4 p-5 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm">
+                        <i data-lucide="user-plus" class="text-amber-500 w-6 h-6"></i>
+                        <span class="text-base font-bold">仲間の招待</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. DM承認システム -->
             <section id="dm" class="content-card">
-                <h2><i data-lucide="mail" class="w-5 h-5 text-sky-500"></i> DMを送りたいとき</h2>
-                <div class="bg-sky-50/50 rounded-xl p-5 mb-8 text-sky-900/80">
-                    <p class="text-sm leading-relaxed">
-                        個人間の連絡はBot経由の承認制です。これは「突然のDM」による心理的負担を減らし、お互いが気持ちよく交流を始めるための仕組みです。
-                    </p>
-                </div>
-                
-                <div class="space-y-6">
-                    <div>
-                        <h4 class="font-bold text-sm mb-3 flex items-center gap-2">利用手順</h4>
-                        <ol class="space-y-3 text-sm text-stone-600">
-                            <li class="flex gap-3"><span class="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center shrink-0 text-[10px] font-bold">1</span> <div>指定チャンネルで <code>[DM申請を送る]</code> ボタンを押す</div></li>
-                            <li class="flex gap-3"><span class="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center shrink-0 text-[10px] font-bold">2</span> <div>相手と用件（コラボ相談、企画依頼等）を選んで送信</div></li>
-                            <li class="flex gap-3"><span class="w-5 h-5 rounded-full bg-stone-100 flex items-center justify-center shrink-0 text-[10px] font-bold">3</span> <div>相手が <code>[承認]</code> するとDMが解禁されます</div></li>
-                        </ol>
-                    </div>
-                    
-                    <div class="p-4 bg-stone-50 rounded-xl text-xs text-stone-500 border border-stone-100">
-                        <p class="font-bold mb-1 text-stone-600">💡 エチケット</p>
-                        承認前の突発的なDMは原則お控えください。もし拒否された場合はその意思を尊重しましょう。
-                    </div>
-                </div>
-            </section>
-
-            <!-- Private Room -->
-            <section id="room" class="content-card">
-                <h2><i data-lucide="door-open" class="w-5 h-5 text-purple-500"></i> プライベートルーム</h2>
-                <p class="text-sm text-stone-600 mb-6 leading-relaxed">
-                    少人数の打ち合わせや、招待メンバーだけで作業したい時に。VCとテキストチャンネルのセットを自動生成できます。
-                </p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-stone-50/80 p-5 rounded-2xl">
-                        <h4 class="font-bold text-xs mb-3 text-stone-500 uppercase tracking-wider">こんな時に</h4>
-                        <ul class="text-xs text-stone-600 space-y-2">
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 text-stone-400"></i> コラボ前の密な相談</li>
-                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 text-stone-400"></i> 特定メンバーとの作業</li>
-                        </ul>
-                    </div>
-                    <div class="bg-stone-50/80 p-5 rounded-2xl">
-                        <h4 class="font-bold text-xs mb-3 text-stone-500 uppercase tracking-wider">部屋の管理</h4>
-                        <ul class="text-xs text-stone-600 space-y-2">
-                            <li class="flex items-center gap-2"><i data-lucide="settings" class="w-3 text-stone-400"></i> パネルから招待・キック・ロックが可能</li>
-                            <li class="flex items-center gap-2"><i data-lucide="trash-2" class="w-3 text-stone-400"></i> 全員退出で自動消滅</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Invite -->
-            <section id="invite" class="content-card">
-                <h2><i data-lucide="user-plus" class="w-5 h-5 text-emerald-500"></i> 参加者の招待</h2>
-                <p class="text-sm text-stone-600 leading-relaxed">
-                    完全招待制ですが、既存参加者は自分のコラボ相手や企画参加者を自由に招待できます。信頼のハブを広げていきましょう。
-                </p>
-                <div class="mt-6 p-5 bg-orange-50/50 border border-orange-100 rounded-2xl text-xs text-orange-800/80">
-                    <p class="font-bold mb-1 flex items-center gap-2"><i data-lucide="alert-circle" class="w-3"></i> 招待責任について</p>
-                    呼べるのは、信頼できる活動者や企画に適した相手に限ります。招待した方の行動によっては、紹介者の方へお話を伺う場合があります。
-                </div>
-            </section>
-
-            <!-- Support -->
-            <section id="support" class="content-card">
-                <h2><i data-lucide="help-circle" class="w-5 h-5 text-indigo-500"></i> 運営への相談・通報</h2>
-                <p class="text-sm text-stone-600 mb-8">
-                    トラブルの相談だけでなく、企画に関する技術的な相談も「秘密のチケット」で受け付けています。
-                </p>
-                <div class="grid sm:grid-cols-2 gap-4">
-                    <div class="flex flex-col gap-3 p-5 bg-stone-50 rounded-2xl border border-stone-100">
-                        <div class="w-8 h-8 bg-white shadow-sm rounded-lg flex items-center justify-center text-stone-500"><i data-lucide="ticket" class="w-4 h-4"></i></div>
-                        <h4 class="font-bold text-sm">全般・技術相談</h4>
-                        <p class="text-[11px] text-stone-500 leading-relaxed">パネル送信で運営のみが見られる専用チャンネルが生成されます。</p>
-                    </div>
-                    <div class="flex flex-col gap-3 p-5 bg-pink-50/30 rounded-2xl border border-pink-100/50">
-                        <div class="w-8 h-8 bg-white shadow-sm rounded-lg flex items-center justify-center text-pink-400"><i data-lucide="smile" class="w-4 h-4"></i></div>
-                        <h4 class="font-bold text-sm text-pink-700">女性スタッフ窓口</h4>
-                        <p class="text-[11px] text-pink-600/70 leading-relaxed">デリケートな相談などは、指定の女性スタッフへ直接連絡が可能です。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Areas -->
-            <section id="area" class="content-card">
-                <h2><i data-lucide="shapes" class="w-5 h-5 text-orange-500"></i> エリアの使い分け</h2>
-                <p class="text-sm text-stone-600 mb-8 leading-relaxed">
-                    餅研には「オフ」と「オン」を明確に分けるための2つのエリアがあります。
+                <h2><i data-lucide="mail-check" class="text-sky-500"></i> DMを送りたいとき</h2>
+                <p class="text-xl mb-10 text-stone-600">
+                    いきなりDMする気まずさを解消し、心理的負担を減らすための仕組みです。
                 </p>
                 
-                <div class="space-y-6">
-                    <div class="p-6 bg-red-50/30 rounded-2xl border-l-4 border-red-300">
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-red-800">BACKSTAGE（完全オフ）</h3>
-                            <span class="badge badge-red">配信禁止</span>
-                        </div>
-                        <p class="text-xs text-stone-500 mb-3 leading-relaxed">裏話、個人的な相談、企画の壁打ちに。ここでの見聞きした内容は外部へ持ち出し禁止です。</p>
-                        <div class="bg-white/60 p-3 rounded-xl text-[10px] font-bold text-red-700 uppercase tracking-widest text-center">
-                            録画・配信・外部共有は厳禁です
+                <div class="relative flex flex-col gap-0 max-w-xl mb-12 text-stone-600">
+                    <div class="flex items-start gap-6">
+                        <div class="step-circle">1</div>
+                        <div class="bg-stone-50 p-5 rounded-2xl flex-1 border border-stone-100 shadow-sm">
+                            <span class="font-bold block text-stone-800 text-lg">Botで申請</span>
+                            <span class="text-base text-stone-500">指定の場所で <code>[DM申請を送る]</code> ボタンを押す</span>
                         </div>
                     </div>
-                    
-                    <div class="p-6 bg-blue-50/30 rounded-2xl border-l-4 border-blue-300">
-                        <div class="flex items-center justify-between mb-3">
-                            <h3 class="font-bold text-blue-800">ON AIR（配信OK）</h3>
-                            <span class="badge badge-blue">公開可能</span>
-                        </div>
-                        <p class="text-xs text-stone-500 mb-3 leading-relaxed">コラボ配信、凸待ち、公開企画に。参加時点で配信に乗る可能性があることに同意したものとみなされます。</p>
-                        <p class="text-[10px] text-stone-400 italic italic">※配信開始時はチャンネル等で一言添えるのが推奨されます。</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- APY Command -->
-            <section id="apy" class="content-card">
-                <h2><i data-lucide="terminal" class="w-5 h-5 text-stone-600"></i> 企画募集 <code>/apy</code></h2>
-                <p class="text-sm text-stone-600 mb-6 leading-relaxed">
-                    募集から専用チャンネルの確保まで自動化する専用コマンドです。
-                </p>
-                <div class="bg-stone-50 p-6 rounded-2xl space-y-4">
-                    <div class="grid grid-cols-2 gap-4 text-[11px] text-stone-500 font-medium">
-                        <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 text-stone-400"></i> 人数・締切設定</div>
-                        <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 text-stone-400"></i> 参加/取消の自動管理</div>
-                        <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 text-stone-400"></i> 公開/非公開部屋の生成</div>
-                        <div class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-3 text-stone-400"></i> 募集Embedの作成</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Hosting Types -->
-            <section id="host-type" class="content-card">
-                <h2><i data-lucide="layers" class="w-5 h-5 text-amber-500"></i> 2つの開催方式</h2>
-                <p class="text-sm text-stone-600 mb-8 leading-relaxed">
-                    餅研で企画を行う場合、主催者のニーズに合わせて2つの方式を選ぶことができます。
-                </p>
-
-                <div class="space-y-8">
-                    <!-- Method A -->
-                    <div class="p-6 border border-amber-100 bg-amber-50/20 rounded-2xl shadow-sm">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs font-bold">A</span>
-                            <h3 class="font-bold text-stone-800 m-0 text-base underline decoration-amber-300 underline-offset-4">鯖缶（もちづき）を巻き込む方式</h3>
-                        </div>
-                        
-                        <div class="grid md:grid-cols-2 gap-4 mb-4">
-                            <div class="bg-white/80 p-4 rounded-xl">
-                                <h4 class="text-xs font-bold text-amber-700 mb-2 uppercase tracking-wider">この方式の利点</h4>
-                                <ul class="text-[11px] text-stone-600 space-y-2">
-                                    <li class="flex gap-2"><i data-lucide="check" class="w-3 text-amber-500 shrink-0"></i> 参加者誘導や進行補助を任せられる</li>
-                                    <li class="flex gap-2"><i data-lucide="check" class="w-3 text-amber-500 shrink-0"></i> @everyone 付きでの広域募集が可能</li>
-                                    <li class="flex gap-2"><i data-lucide="check" class="w-3 text-amber-500 shrink-0"></i> <div>大人数でも快適に遊べる専用Minecraftサーバーを構築・提供</div></li>
-                                    <li class="flex gap-2"><i data-lucide="check" class="w-3 text-amber-500 shrink-0"></i> 技術的な独自プラグインの開発や実装の相談</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white/80 p-4 rounded-xl">
-                                <h4 class="text-xs font-bold text-stone-500 mb-2 uppercase tracking-wider">向いている人</h4>
-                                <ul class="text-[11px] text-stone-600 space-y-2">
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> 大人数企画をやりたい</li>
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> 参加者誘導を手伝ってほしい</li>
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> 企画進行に集中したい</li>
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> サーバー構築や技術協力が必要</li>
-                                    <li class="flex gap-2 font-bold text-stone-700"><i data-lucide="sparkles" class="w-3 text-amber-500 shrink-0"></i> 自分だけでは実現が難しい企画を形にしたい</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="space-y-4">
-                            <!-- Minecraft Server Section -->
-                            <div class="bg-white border border-stone-100 rounded-xl p-4 shadow-sm">
-                                <h4 class="text-xs font-bold text-amber-800 mb-2 flex items-center gap-2">
-                                    <i data-lucide="box" class="w-3 text-amber-500"></i> Minecraftサーバー提供について
-                                </h4>
-                                <p class="text-[11px] text-stone-600 leading-relaxed">
-                                    餅研では、多人数接続でも安定して動作する高性能なMinecraftサーバーを用意できます。「やりたいことはあるけど鯖を立てる知識がない」「大人数だと落ちそうで不安」といった心配は無用です。鯖缶がインフラ面を全面的にサポートします。
-                                </p>
-                            </div>
-
-                            <div class="p-3 bg-stone-100/50 rounded-lg text-[10px] text-stone-500 leading-relaxed border border-stone-100">
-                                <p class="font-bold mb-1 text-stone-600 italic">⚠️ スケジュール調整について</p>
-                                鯖缶のリソースを割くため、事前の相談と日程調整が必須です。また、すべての企画への協力を保証するものではなく、内容に基づき総合的に判断します。
-                            </div>
-                            <div class="flex items-center gap-2 text-[11px] font-bold text-amber-600 bg-white p-3 rounded-lg border border-amber-100 shadow-sm">
-                                <i data-lucide="message-square" class="w-3 text-amber-500"></i>
-                                <span>相談方法：運営チケット、またはVCにいる鯖缶へ直接お声がけください。</span>
-                            </div>
+                    <div class="step-arrow"></div>
+                    <div class="flex items-start gap-6">
+                        <div class="step-circle">2</div>
+                        <div class="bg-stone-50 p-5 rounded-2xl flex-1 border border-stone-100 shadow-sm">
+                            <span class="font-bold block text-stone-800 text-lg">用件を選ぶ</span>
+                            <span class="text-base text-stone-500">コラボ相談、企画依頼、打ち合わせ、制作連絡など</span>
                         </div>
                     </div>
-
-                    <!-- Method B -->
-                    <div class="p-6 border border-stone-100 bg-stone-50/30 rounded-2xl shadow-sm">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="w-8 h-8 rounded-full bg-stone-400 text-white flex items-center justify-center text-xs font-bold">B</span>
-                            <h3 class="font-bold text-stone-800 m-0 text-base underline decoration-stone-300 underline-offset-4">鯖缶を巻き込まない（自主企画）方式</h3>
-                        </div>
-
-                        <div class="grid md:grid-cols-2 gap-4 mb-4">
-                            <div class="bg-white/80 p-4 rounded-xl">
-                                <h4 class="text-xs font-bold text-stone-600 mb-2 uppercase tracking-wider">この方式の利点</h4>
-                                <ul class="text-[11px] text-stone-600 space-y-1.5">
-                                    <li class="flex gap-2"><i data-lucide="zap" class="w-3 text-stone-400 shrink-0"></i> 自分の判断で柔軟に動ける</li>
-                                    <li class="flex gap-2"><i data-lucide="zap" class="w-3 text-stone-400 shrink-0"></i> 相談の手間なく日程を組める</li>
-                                    <li class="flex gap-2"><i data-lucide="zap" class="w-3 text-stone-400 shrink-0"></i> 小〜中規模の企画に最適</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white/80 p-4 rounded-xl">
-                                <h4 class="text-xs font-bold text-stone-500 mb-2 uppercase tracking-wider">向いている人</h4>
-                                <ul class="text-[11px] text-stone-600 space-y-1.5">
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> 自分で全部進行できる</li>
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> まずは軽くやってみたい</li>
-                                    <li class="flex gap-2"><i data-lucide="user" class="w-3 text-stone-400 shrink-0"></i> 今すぐメンバーを募集したい</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="p-3 bg-stone-100/50 rounded-lg text-[11px] text-stone-500 leading-relaxed border border-stone-100">
-                            <p class="font-bold mb-1 text-stone-600 italic">⚠️ 注意点</p>
-                            募集、誘導、進行管理はすべて企画者自身で行う必要があります。募集は主に <code>ゆる募</code> チャンネルや <code>/apy</code> コマンド（非告知）を使用します。
+                    <div class="step-arrow"></div>
+                    <div class="flex items-start gap-6">
+                        <div class="bg-sky-500 text-white step-circle shadow-lg shadow-sky-200"><i data-lucide="check" class="w-5 h-5"></i></div>
+                        <div class="bg-sky-50 p-5 rounded-2xl flex-1 border border-sky-100 shadow-sm text-stone-700">
+                            <span class="font-bold block text-sky-800 text-lg underline underline-offset-4 decoration-sky-200">DM解禁</span>
+                            <span class="text-base text-sky-700 font-medium">相手が「承認」すると、自由にメッセージが送れます</span>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- Categories -->
-            <section id="category" class="content-card">
-                <h2><i data-lucide="map-pin" class="w-5 h-5 text-pink-500"></i> 餅研開催企画と外部開催企画</h2>
-                <p class="text-sm text-stone-600 mb-6 leading-relaxed">
-                    餅研では、サーバー内部での企画だけでなく、外部で開催されるイベントの告知や募集も可能です。実施場所によってルールが異なります。
-                </p>
-
-                <div class="grid md:grid-cols-2 gap-6 mb-8">
-                    <div class="p-5 bg-pink-50/30 rounded-2xl border border-pink-100">
-                        <h4 class="font-bold text-sm mb-3 text-pink-800">餅研開催企画</h4>
-                        <ul class="text-[11px] text-stone-500 space-y-2 leading-relaxed">
-                            <li class="flex gap-2 items-start"><i data-lucide="home" class="w-3 text-pink-400 mt-0.5"></i> <div>餅研内のVCやルーム、専用鯖を使って実施する企画</div></li>
-                            <li class="flex gap-2 items-start"><i data-lucide="home" class="w-3 text-pink-400 mt-0.5"></i> <div>募集から実施まで一貫して餅研の場を利用します</div></li>
-                        </ul>
-                    </div>
-                    <div class="p-5 bg-stone-50/50 rounded-2xl border border-stone-100">
-                        <h4 class="font-bold text-sm mb-3 text-stone-700">外部開催企画</h4>
-                        <ul class="text-[11px] text-stone-500 space-y-2 leading-relaxed">
-                            <li class="flex gap-2 items-start"><i data-lucide="external-link" class="w-3 text-stone-400 mt-0.5"></i> <div>他サーバーや外部サービス（Web等）で行う企画</div></li>
-                            <li class="flex gap-2 items-start"><i data-lucide="external-link" class="w-3 text-stone-400 mt-0.5"></i> <div>告知や参加募集の窓口としてのみ餅研を利用します</div></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="bg-stone-50 p-5 rounded-2xl mb-8">
-                    <h4 class="font-bold text-xs text-stone-500 mb-3 uppercase tracking-wider flex items-center gap-2">
-                        <i data-lucide="lightbulb" class="w-3"></i> 重要な考え方
-                    </h4>
-                    <ul class="text-[11px] text-stone-600 space-y-2">
-                        <li>・「餅研内で募集された企画」が必ずしも「餅研内開催」とは限りません。</li>
-                        <li>・主催者は、実施場所が「餅研内」か「外部」か、参加者に伝わるよう案内してください。</li>
+                <div class="important-box bg-red-50 text-red-800 border-l-4 border-red-400 shadow-sm">
+                    <h4 class="font-bold mb-3 flex items-center gap-2 text-lg">禁止・マナー事項</h4>
+                    <ul class="space-y-2 text-base">
+                        <li>・承認前の突発DMは原則NGです。</li>
+                        <li>・拒否された場合は意思を尊重し、別ルートでの接触もしないでください。</li>
                     </ul>
                 </div>
-
-                <div class="p-6 bg-white border border-stone-100 rounded-2xl">
-                    <h4 class="font-bold text-sm mb-4 text-stone-800">自由な活動を推奨（禁止していないこと）</h4>
-                    <p class="text-[11px] text-stone-500 mb-4 leading-relaxed">
-                        餅研は参加者の外部での活動を縛りません。以下のような活動は自由に行えます。
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] text-stone-600">
-                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="user-cog" class="w-3 text-stone-400"></i> 外部企画を主催すること</div>
-                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="megaphone" class="w-3 text-stone-400"></i> 外部イベントの宣伝</div>
-                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="users-2" class="w-3 text-stone-400"></i> 外部イベントへの勧誘</div>
-                        <div class="flex items-center gap-2 px-3 py-2 bg-stone-50 rounded-lg"><i data-lucide="info" class="w-3 text-stone-400"></i> 外部で作った企画の紹介</div>
-                    </div>
-                </div>
             </section>
 
-            <!-- External -->
-            <section id="external" class="content-card">
-                <h2><i data-lucide="share-2" class="w-5 h-5 text-slate-500"></i> 外部企画の扱い</h2>
-                <p class="text-sm text-stone-600 leading-relaxed mb-6 text-orange-800 font-medium">
-                    外部企画に関連して発生した問題は、内容によって餅研内での信用判断に影響する場合があります。
+            <!-- 3. プライベートルーム -->
+            <section id="room" class="content-card">
+                <h2><i data-lucide="door-closed" class="text-purple-500"></i> プライベートルームを作る</h2>
+                <div class="grid md:grid-cols-2 gap-10 mb-10 text-stone-600">
+                    <div>
+                        <h4 class="font-bold text-stone-800 mb-6 flex items-center gap-2"><i data-lucide="help-circle" class="w-5 text-purple-400"></i> 活用シーン</h4>
+                        <div class="flex flex-wrap gap-3 text-sm font-bold">
+                            <span class="px-4 py-1.5 bg-purple-50 text-purple-600 rounded-xl">少人数打ち合わせ</span>
+                            <span class="px-4 py-1.5 bg-purple-50 text-purple-600 rounded-xl">コラボ前の事前相談</span>
+                            <span class="px-4 py-1.5 bg-purple-50 text-purple-600 rounded-xl">招待メンバーでの通話</span>
+                            <span class="px-4 py-1.5 bg-purple-50 text-purple-600 rounded-xl">外から見られずに作業</span>
+                            <span class="px-4 py-1.5 bg-purple-50 text-purple-600 rounded-xl">一時的な企画集合場所</span>
+                        </div>
+                    </div>
+                    <div class="bg-stone-50 p-8 rounded-2xl shadow-sm border border-stone-100">
+                        <h4 class="font-bold text-stone-800 mb-5 text-base">パネルでできる操作</h4>
+                        <div class="space-y-4 text-stone-600">
+                            <div class="flex items-center justify-between text-sm bg-white p-3 px-4 rounded-lg border border-stone-100 shadow-sm">
+                                <span>メンバーを招待</span><i data-lucide="user-plus" class="w-4 text-stone-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between text-sm bg-white p-3 px-4 rounded-lg border border-stone-100 shadow-sm">
+                                <span>部屋をロック（入室不可）</span><i data-lucide="lock" class="w-4 text-stone-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between text-sm bg-white p-3 px-4 rounded-lg border border-stone-100 shadow-sm">
+                                <span>メンバーをキック</span><i data-lucide="user-x" class="w-4 text-stone-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-sm text-stone-400 text-center border-t border-stone-100 pt-8 leading-relaxed">
+                    利用方法：指定チャンネルで <code>[ルームを作成]</code> を押すだけ。<br>
+                    <strong>全員が退出するとルームは自動で消滅します。</strong>
                 </p>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="p-5 bg-stone-50 rounded-2xl border border-stone-100">
-                        <h4 class="font-bold text-xs mb-2 text-stone-700">企画者の方へ</h4>
-                        <p class="text-[10px] text-stone-500 leading-relaxed">
-                            餅研内で広報・募集を行った場合、外部開催であっても発生したトラブルは**利用規約（サーバー外での振る舞い）**の確認対象となります。「外部だから無関係」とは限らない点にご留意ください。
+            </section>
+
+            <!-- 4. 参加者の招待 (崩れを修正) -->
+            <section id="invite" class="content-card">
+                <h2><i data-lucide="users" class="text-emerald-500"></i> 参加者の招待</h2>
+                <div class="space-y-8">
+                    <p class="text-xl text-stone-600 leading-relaxed">
+                        餅研は完全招待制ですが、既存参加者は必要に応じて自分のコラボ相手や企画参加者を自由に招待できます。
+                    </p>
+
+                    <div class="grid lg:grid-cols-5 gap-8 items-stretch">
+                        <!-- メインコンテンツ (3/5) -->
+                        <div class="lg:col-span-3 space-y-6">
+                            <div class="bg-emerald-50/50 p-8 rounded-[2rem] border border-emerald-100 shadow-sm">
+                                <h4 class="font-bold text-emerald-900 text-lg mb-4 flex items-center gap-2">
+                                    <i data-lucide="sparkles" class="w-5 h-5"></i> 招待が活きる場面
+                                </h4>
+                                <ul class="text-base text-emerald-800 space-y-4">
+                                    <li class="flex gap-3"><span class="text-emerald-400 font-bold">•</span> 信頼できるストリーマーを呼びたいとき</li>
+                                    <li class="flex gap-3"><span class="text-emerald-400 font-bold">•</span> 外部のコラボ相手を餅研に入れたいとき</li>
+                                    <li class="flex gap-3"><span class="text-emerald-400 font-bold">•</span> 企画に必要な出演者・参加者を招待したいとき</li>
+                                    <li class="flex gap-3"><span class="text-emerald-400 font-bold">•</span> 外部の人も交えたイベントを餅研で開催したいとき</li>
+                                </ul>
+                            </div>
+                            <p class="text-base text-stone-500 italic px-4">
+                                餅研は排他的な場ではありません。信頼をベースに必要な人を巻き込み、交流を広げていけるのも大きな特徴です。
+                            </p>
+                        </div>
+
+                        <!-- 警告ボックス (2/5) -->
+                        <div class="lg:col-span-2 bg-orange-50 p-8 rounded-[2rem] border border-orange-200 shadow-sm flex flex-col justify-center">
+                            <h4 class="font-bold text-orange-900 text-base mb-4 flex items-center gap-2">
+                                <i data-lucide="alert-circle" class="w-6 h-6 shrink-0"></i> 招待の責任について
+                            </h4>
+                            <p class="text-[14px] text-orange-800 leading-relaxed mb-4 font-medium">
+                                招待には責任が伴います。呼べるのは、信頼できる活動者や企画参加に適した相手に限ってください。
+                            </p>
+                            <p class="text-[12px] text-orange-700 leading-relaxed bg-white/50 p-4 rounded-xl border border-orange-100 italic">
+                                招待した相手の行動によっては、招待者にも確認や注意が入る場合があります。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. 運営への相談・通報 -->
+            <section id="support" class="content-card">
+                <h2><i data-lucide="life-buoy" class="text-indigo-500"></i> 運営への相談・通報</h2>
+                <p class="text-xl text-stone-600 mb-10">
+                    「何かあった時に誰にも見られず相談できる」ことを最優先にしています。
+                </p>
+                <div class="grid sm:grid-cols-2 gap-6 text-stone-600">
+                    <div class="bg-indigo-50 p-8 rounded-2xl border border-indigo-100 shadow-sm">
+                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-indigo-500">
+                            <i data-lucide="ticket" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-indigo-900 mb-3 text-lg">全般・技術相談</h4>
+                        <p class="text-sm text-indigo-700 leading-relaxed">
+                            トラブル、ハラスメント被害、ルールの確認、企画運営の相談など。パネル送信で専用部屋が生成されます。
                         </p>
                     </div>
-                    <div class="p-5 bg-stone-50 rounded-2xl border border-stone-100">
-                        <h4 class="font-bold text-xs mb-2 text-stone-700">参加者の方へ</h4>
-                        <p class="text-[10px] text-stone-500 leading-relaxed">
-                            外部企画自体を餅研が監督しているわけではありません。運営責任やトラブルについて餅研は責任を負いかねるため、各自の判断で参加してください。
+                    <div class="bg-pink-50 p-8 rounded-2xl border border-pink-100 shadow-sm text-stone-700">
+                        <div class="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 text-pink-500">
+                            <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                        </div>
+                        <h4 class="font-bold text-pink-900 mb-3 text-lg">女性スタッフ窓口</h4>
+                        <p class="text-sm text-pink-700 leading-relaxed">
+                            女性参加者の方が安心して相談できるよう、指定の女性スタッフへ直接連絡が可能です。
                         </p>
                     </div>
                 </div>
             </section>
 
-            <footer class="text-center py-16">
-                <p class="text-xs text-stone-400 mb-6">ルールを守って、楽しい創作ライフを！</p>
-                <div class="w-16 h-1.5 bg-stone-200 mx-auto rounded-full"></div>
+            <!-- 6. エリアの使い分け -->
+            <section id="area" class="content-card overflow-hidden">
+                <h2><i data-lucide="repeat" class="text-orange-500"></i> エリアの使い分け</h2>
+                <p class="text-xl text-stone-600 mb-12">
+                    「本音で話せる場所」と「配信に乗る場所」を明確に分けています。
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-0 border border-stone-100 rounded-[2.5rem] overflow-hidden shadow-sm text-stone-600">
+                    <!-- BACKSTAGE -->
+                    <div class="p-10 bg-stone-50">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="eye-off" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="m-0 text-red-800 text-2xl">BACKSTAGE</h3>
+                        </div>
+                        <span class="badge badge-red mb-8 inline-block font-black">完全オフ空間</span>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex gap-3"><i data-lucide="check" class="text-green-500 w-5"></i> 裏話・雑談・個人的な相談</li>
+                            <li class="flex gap-3"><i data-lucide="check" class="text-green-500 w-5"></i> 企画の壁打ち・まったり作業</li>
+                            <li class="font-black text-red-600 mt-8 border-t border-red-100 pt-6 flex gap-3">
+                                <i data-lucide="ban" class="w-5 h-5 shrink-0"></i> 配信・録画・外部共有 禁止
+                            </li>
+                            <li class="font-black text-red-600 flex gap-3 leading-tight">
+                                <i data-lucide="ban" class="w-5 h-5 shrink-0"></i> ここでの情報の持ち出し禁止
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- ON AIR -->
+                    <div class="p-10 bg-sky-50">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                                <i data-lucide="video" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="m-0 text-blue-800 text-2xl">ON AIR</h3>
+                        </div>
+                        <span class="badge badge-blue mb-8 inline-block font-black">配信・録画 OK</span>
+                        <ul class="space-y-5 text-base">
+                            <li class="flex gap-3"><i data-lucide="check" class="text-green-500 w-5"></i> コラボ配信・凸待ち・公開企画</li>
+                            <li class="flex gap-3"><i data-lucide="check" class="text-green-500 w-5"></i> 通話配信・公開前提の交流</li>
+                            <li class="font-black text-blue-600 mt-8 border-t border-blue-100 pt-6 flex gap-3">
+                                <i data-lucide="check-circle" class="w-5 h-5 shrink-0"></i> 参加時点で配信同意とみなす
+                            </li>
+                            <li class="font-bold text-blue-500 flex gap-3">
+                                <i data-lucide="info" class="w-5 h-5 shrink-0"></i> 配信時は一言添えるのを推奨
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7&8. 企画募集コマンド -->
+            <section id="event-intro" class="content-card">
+                <h2><i data-lucide="terminal" class="text-stone-700"></i> 企画募集コマンド <code>/apy</code></h2>
+                <div class="flex flex-col md:flex-row gap-10 items-stretch mb-12 text-stone-600">
+                    <div class="flex-1 bg-stone-50 p-10 rounded-[2.5rem] border border-stone-100 shadow-sm">
+                        <h4 class="text-stone-800 font-bold mb-8 flex items-center gap-3 text-lg">
+                            <i data-lucide="plus-circle" class="w-6 text-pink-500"></i> システムでできること
+                        </h4>
+                        <div class="grid grid-cols-2 gap-6 text-sm font-bold text-stone-500">
+                            <div class="flex items-center gap-3"><i data-lucide="file-text" class="w-4"></i> 募集Embed作成</div>
+                            <div class="flex items-center gap-3"><i data-lucide="users" class="w-4"></i> 人数・締切管理</div>
+                            <div class="flex items-center gap-3"><i data-lucide="hash" class="w-4"></i> 部屋の自動作成</div>
+                            <div class="flex items-center gap-3"><i data-lucide="lock" class="w-4 text-emerald-500"></i> 非公開部屋の対応</div>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-white p-10 rounded-[2.5rem] border-2 border-stone-100 border-dashed">
+                        <h4 class="text-stone-800 font-bold mb-8 flex items-center gap-3 text-lg text-stone-800">
+                            <i data-lucide="user-check" class="w-6 text-blue-500"></i> 参加者ができること
+                        </h4>
+                        <ul class="text-[14px] text-stone-500 space-y-4">
+                            <li class="flex gap-3"><i data-lucide="mouse-pointer-2" class="w-4 shrink-0 text-blue-400"></i> ボタン一つで参加表明・取消</li>
+                            <li class="flex gap-3"><i data-lucide="key" class="w-4 text-amber-500 shrink-0"></i> 非公開募集では、参加と同時にチャンネルへのアクセス権が自動付与されます</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-stone-800 text-stone-200 p-8 rounded-3xl shadow-lg shadow-stone-200">
+                    <h4 class="text-amber-400 font-bold text-sm mb-4 tracking-wider uppercase">募集できる企画の例</h4>
+                    <p class="text-[13px] opacity-80 mb-6 leading-relaxed">規約に反しない限り、ゲームや内容を問わず募集可能です。</p>
+                    <div class="flex flex-wrap gap-3 text-xs font-bold">
+                        <span class="bg-white/10 px-4 py-2 rounded-lg">Minecraft企画</span>
+                        <span class="bg-white/10 px-4 py-2 rounded-lg">他ゲーム大会</span>
+                        <span class="bg-white/10 px-4 py-2 rounded-lg">配信企画の相談</span>
+                        <span class="bg-white/10 px-4 py-2 rounded-lg">テストプレイ募集</span>
+                        <span class="bg-white/10 px-4 py-2 rounded-lg">交流イベント</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. 2つの開催方式 -->
+            <section id="host-type" class="content-card text-stone-600">
+                <h2><i data-lucide="layers" class="text-amber-500"></i> 2つの開催方式</h2>
+                <div class="space-y-12 mt-12">
+                    <div class="relative p-10 bg-amber-50 border border-amber-200 rounded-[3rem] shadow-sm">
+                        <div class="absolute -top-5 left-10 bg-amber-500 text-white font-black px-8 py-2.5 rounded-full text-base shadow-lg shadow-amber-200 uppercase tracking-widest">
+                            方式 A：鯖缶を巻き込む
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-10 mt-6 text-stone-700">
+                            <div>
+                                <h4 class="text-amber-800 font-black text-lg mb-6 flex items-center gap-2">
+                                    <i data-lucide="sparkles" class="w-5"></i> この方式の利点
+                                </h4>
+                                <ul class="text-[14px] text-amber-900/70 space-y-3 font-medium">
+                                    <li>・参加者誘導や進行補助をお任せ</li>
+                                    <li>・@everyone 付きでの広域告知が可能</li>
+                                    <li>・大人数用Minecraftサーバー構築・提供</li>
+                                    <li>・技術開発やプラグイン実装の相談</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white/70 p-7 rounded-2xl shadow-sm">
+                                <h4 class="text-stone-800 font-bold text-sm mb-4 underline decoration-amber-300 underline-offset-4">向いている人</h4>
+                                <ul class="text-[13px] text-stone-600 space-y-2">
+                                    <li>・大型の大人数イベントをやりたい</li>
+                                    <li>・自分は企画そのものに集中したい</li>
+                                    <li>・自分だけでは実現が難しい技術が必要</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-4 text-stone-700">
+                            <span class="text-xs font-bold bg-amber-200/50 text-amber-800 px-4 py-1.5 rounded-full border border-amber-200">相談先：運営チケット</span>
+                            <span class="text-xs font-bold bg-amber-200/50 text-amber-800 px-4 py-1.5 rounded-full border border-amber-200">要：スケジュール調整</span>
+                        </div>
+                    </div>
+
+                    <div class="relative p-10 bg-stone-100 border border-stone-200 rounded-[3rem] shadow-sm">
+                        <div class="absolute -top-5 left-10 bg-stone-600 text-white font-black px-8 py-2.5 rounded-full text-base shadow-lg shadow-stone-200 uppercase tracking-widest text-stone-100">
+                            方式 B：自主企画で行う
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-10 mt-6 text-stone-700">
+                            <div>
+                                <h4 class="text-stone-800 font-black text-lg mb-6 flex items-center gap-2">
+                                    <i data-lucide="zap" class="w-5 text-amber-500"></i> この方式の利点
+                                </h4>
+                                <ul class="text-[14px] text-stone-500 space-y-3 font-medium">
+                                    <li>・自分の判断で柔軟・即座に動ける</li>
+                                    <li>・相談不要で日程を自由に組める</li>
+                                    <li>・小〜中規模の企画に最適</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-7 rounded-2xl border border-stone-100 shadow-sm text-stone-700">
+                                <h4 class="text-stone-800 font-bold text-sm mb-4 underline decoration-stone-300 underline-offset-4">向いている人</h4>
+                                <ul class="text-[13px] text-stone-600 space-y-2">
+                                    <li>・自分で全部進行・管理ができる</li>
+                                    <li>・まずは軽くテストプレイしたい</li>
+                                    <li>・今すぐメンバーを集めて遊びたい</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="mt-8 text-stone-600">
+                            <span class="text-xs font-bold bg-stone-200 text-stone-600 px-4 py-1.5 rounded-full border border-stone-300">主会場：ゆる募チャンネル / プライベートルーム</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. 餅研開催と外部開催 -->
+            <section id="category" class="content-card text-stone-600">
+                <h2><i data-lucide="map" class="text-pink-500"></i> 餅研開催企画と外部開催企画</h2>
+                <div class="grid md:grid-cols-2 gap-6 mb-12 text-center font-bold">
+                    <div class="p-10 bg-pink-50 rounded-[2.5rem] border-2 border-pink-100 shadow-sm">
+                        <i data-lucide="home" class="mx-auto mb-6 text-pink-400 w-8 h-8"></i>
+                        <h4 class="text-pink-800 mb-3 text-lg">餅研開催企画</h4>
+                        <p class="text-[13px] text-pink-600 leading-relaxed font-normal">
+                            場所：餅研VC、ルーム、専用鯖<br>
+                            餅研の場を使ってそのまま実施します。
+                        </p>
+                    </div>
+                    <div class="p-10 bg-stone-100 rounded-[2.5rem] border-2 border-stone-200 shadow-sm">
+                        <i data-lucide="external-link" class="mx-auto mb-6 text-stone-400 w-8 h-8"></i>
+                        <h4 class="text-stone-800 mb-3 text-lg">外部開催企画</h4>
+                        <p class="text-[13px] text-stone-500 leading-relaxed font-normal">
+                            場所：他鯖、外部サービス等<br>
+                            餅研では「告知・募集」のみを行います。
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="bg-stone-50 p-8 rounded-2xl mb-12 border border-stone-100 shadow-sm">
+                    <h4 class="text-xs font-black text-stone-400 mb-5 uppercase tracking-[0.25em] flex items-center gap-2">
+                        <i data-lucide="info" class="w-4"></i> 重要なポイント
+                    </h4>
+                    <div class="space-y-4 text-base font-bold text-stone-700">
+                        <div class="flex gap-4">
+                            <span class="text-pink-500 shrink-0">●</span>
+                            <span>「餅研内募集」＝「餅研内開催」とは限りません。</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="text-pink-500 shrink-0">●</span>
+                            <span>外部開催の場合は、その旨が分かるように案内してください。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-10 border border-dashed border-stone-200 rounded-[2.5rem]">
+                    <h4 class="text-base font-black mb-8 flex items-center gap-3">
+                        <i data-lucide="heart" class="text-rose-400"></i> 外部活動も自由にどうぞ
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-medium">
+                        <div class="flex items-center gap-3 p-4 bg-stone-50 rounded-xl shadow-sm border border-stone-100"><i data-lucide="user-plus" class="w-4 text-stone-400"></i> 外部企画を主催すること</div>
+                        <div class="flex items-center gap-3 p-4 bg-stone-50 rounded-xl shadow-sm border border-stone-100"><i data-lucide="megaphone" class="w-4 text-stone-400"></i> 他イベントの宣伝</div>
+                        <div class="flex items-center gap-3 p-4 bg-stone-50 rounded-xl shadow-sm border border-stone-100"><i data-lucide="users" class="w-4 text-stone-400"></i> 外部イベントへ誘うこと</div>
+                        <div class="flex items-center gap-3 p-4 bg-stone-50 rounded-xl shadow-sm border border-stone-100"><i data-lucide="link" class="w-4 text-stone-400"></i> 外部企画を餅研で紹介</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 11. 外部企画の注意点 -->
+            <section id="external" class="content-card border-orange-200 shadow-orange-50 shadow-lg text-stone-700">
+                <h2><i data-lucide="alert-circle" class="text-orange-600"></i> 外部企画を扱うときの注意</h2>
+                <div class="grid md:grid-cols-2 gap-10 mt-8">
+                    <div>
+                        <h4 class="text-stone-800 font-bold text-base mb-5 border-b border-orange-200 pb-3 uppercase tracking-wider">【企画者の方へ】</h4>
+                        <p class="text-[14px] text-stone-500 leading-relaxed font-bold italic mb-5 text-orange-700">
+                            告知した責任が伴います。
+                        </p>
+                        <p class="text-[13px] text-stone-500 leading-relaxed text-stone-600">
+                            餅研内で募集した以上、外部でのトラブルも**利用規約（サーバー外での振る舞い）**の確認対象となり、餅研内での信用判断に影響する場合があります。
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-stone-800 font-bold text-base mb-5 border-b border-orange-200 pb-3 uppercase tracking-wider">【参加者の方へ】</h4>
+                        <p class="text-[14px] text-stone-500 leading-relaxed font-bold italic mb-5 text-orange-700">
+                            監督外であることに注意。
+                        </p>
+                        <p class="text-[13px] text-stone-500 leading-relaxed text-stone-600">
+                            外部企画自体を監督しているわけではありません。運営責任や事故について餅研は責任を負いかねるため、参加は各自の判断でお願いします。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 12. 餅研が向いている人 -->
+            <section id="fit" class="content-card text-stone-600">
+                <h2><i data-lucide="compass" class="text-indigo-500"></i> 餅研が向いている人</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+                    <div class="p-5 bg-indigo-50 rounded-2xl flex items-center gap-4 text-sm font-bold text-indigo-700 shadow-sm border border-indigo-100">
+                        <i data-lucide="shield-check" class="w-6 shrink-0"></i> 安全に配信者と交流したい
+                    </div>
+                    <div class="p-5 bg-indigo-50 rounded-2xl flex items-center gap-4 text-sm font-bold text-indigo-700 shadow-sm border border-indigo-100">
+                        <i data-lucide="zap" class="w-6 shrink-0"></i> コラボや企画を動かしたい
+                    </div>
+                    <div class="p-5 bg-indigo-50 rounded-2xl flex items-center gap-4 text-sm font-bold text-indigo-700 shadow-sm border border-indigo-100">
+                        <i data-lucide="users" class="w-6 shrink-0"></i> 企画募集をして人を集めたい
+                    </div>
+                    <div class="p-5 bg-indigo-50 rounded-2xl flex items-center gap-4 text-sm font-bold text-indigo-700 shadow-sm border border-indigo-100">
+                        <i data-lucide="settings" class="w-6 shrink-0"></i> 技術的な相談をしたい
+                    </div>
+                </div>
+            </section>
+
+            <!-- 13. 最後に -->
+            <footer id="last" class="text-center py-24 px-10 bg-stone-800 text-stone-300 rounded-[3.5rem] shadow-2xl">
+                <h2 class="justify-center border-none text-white mb-8 tracking-tighter text-3xl font-black">
+                    「まず相談、まず募集」を合言葉に。
+                </h2>
+                <p class="text-xl opacity-70 mb-16 max-w-2xl mx-auto leading-relaxed">
+                    遠慮して何もやらないより、一歩踏み出すことを支えるための仕組みを揃えました。
+                </p>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 text-[12px] font-black uppercase tracking-widest text-white/40">
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-white"><i data-lucide="mail" class="w-6 h-6"></i></div>
+                        DM申請
+                    </div>
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-white"><i data-lucide="door-open" class="w-6 h-6"></i></div>
+                        ルーム
+                    </div>
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-white"><i data-lucide="life-buoy" class="w-6 h-6"></i></div>
+                        運営相談
+                    </div>
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-white"><i data-lucide="calendar" class="w-6 h-6"></i></div>
+                        企画募集
+                    </div>
+                    <div class="flex flex-col items-center gap-4">
+                        <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center text-white"><i data-lucide="terminal" class="w-6 h-6"></i></div>
+                        技術相談
+                    </div>
+                </div>
+
+                <div class="mt-24 pt-12 border-t border-white/10 flex flex-col items-center">
+                    <p class="text-sm font-bold mb-6">詳細な規約は別ページにてご確認ください。</p>
+                    <div class="w-24 h-1.5 bg-pink-500 rounded-full"></div>
+                    <p class="mt-6 text-[11px] opacity-30">© 2024 Mochiken Streamers Room. Creating Hash Together.</p>
+                </div>
             </footer>
 
         </main>
     </div>
 
-    <!-- Mobile Navigation Toggle (Simple) -->
-    <div class="md:hidden fixed bottom-6 right-6">
-        <button class="bg-stone-800 text-white p-4 rounded-full shadow-xl" onclick="window.scrollTo(0,0)">
-            <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    <!-- モバイル用トップ戻りボタン -->
+    <div class="lg:hidden fixed bottom-8 right-8 z-50">
+        <button class="bg-stone-800 text-white p-6 rounded-full shadow-2xl active:scale-95 transition-transform" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <i data-lucide="arrow-up" class="w-7 h-7"></i>
         </button>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // Scroll spy to highlight sidebar
-        const sections = document.querySelectorAll('section, header');
+        // スクロールに応じたサイドバーのハイライト
+        const sections = document.querySelectorAll('section, footer, header');
         const navLinks = document.querySelectorAll('.nav-link');
 
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (pageYOffset >= (sectionTop - 200)) {
+                if (pageYOffset >= (sectionTop - 250)) {
                     current = section.getAttribute('id');
                 }
             });
